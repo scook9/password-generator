@@ -1,2 +1,3 @@
-# password-generator
-Password generator for module 3 at DU coding bootcamp
+# Password Generator Starter Code
+
+starter files from https://github.com/coding-boot-camp/friendly-parakeet
