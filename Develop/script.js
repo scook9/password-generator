@@ -1,5 +1,3 @@
-// Assignment code here
-
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
@@ -11,9 +9,31 @@ var lowercaseCharactersArray = lowercaseCharacters.split("");
 var uppercaseCharactersArray = lowercaseCharacters.toUpperCase().split("");
 var numericArray = "0123456789".split("");
 
+// Will be used at end of generated password array to ensure characters are at a random index
+function shuffle(array) {
+  let currentIndex = array.length,
+    randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex > 0) {
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+
+  return array;
+}
+
 // This is called in writePassword(), just needs to generate the password
 function generatePassword() {
   var validcharacters = [];
+  var generatedPasswordArray = []; //add pw to this array, order does not matter as it is shuffled later in this function
   var generatedPassword = "";
 
   var userCriteria = {
@@ -26,6 +46,11 @@ function generatePassword() {
 
   if (userCriteria.lowercase === true) {
     validcharacters = validcharacters.concat(lowercaseCharactersArray);
+    generatedPasswordArray =
+      generatedPasswordArray +
+      lowercaseCharactersArray[
+        Math.floor(Math.random() * lowercaseCharactersArray.length)
+      ];
   }
   if (userCriteria.uppercase === true) {
     validcharacters = validcharacters.concat(uppercaseCharactersArray);
@@ -37,10 +62,14 @@ function generatePassword() {
     validcharacters = validcharacters.concat(specialCharactersArray);
   }
 
+  console.log("Pre-shuffle and pw loop ");
+  console.log(generatedPasswordArray);
+
   //main loop for random password
   for (var i = 0; i < userCriteria.length; i++) {
     // generatedPassword = generatedPassword +
   }
+  console.log(generatedPasswordArray);
 }
 
 // Write password to the #password input
