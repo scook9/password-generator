@@ -32,9 +32,9 @@ function shuffle(array) {
 
 // This is called in writePassword(), just needs to generate the password
 function generatePassword() {
-  var validcharacters = [];
-  var generatedPasswordArray = []; //add pw to this array, order does not matter as it is shuffled later in this function
-  var generatedPassword = "";
+  var validCharacters = [];
+  var initialLength = 0; //increment for each true userCriteria, subtract from desired pw length to get rest of the random characters
+  var generatedPasswordArray = []; //add pw to this array, order does not matter as it is shuffled later in this function, return at end of function
 
   var userCriteria = {
     length: prompt("What is the desired password length? (8-128 characters)"), // int
@@ -45,31 +45,50 @@ function generatePassword() {
   };
 
   if (userCriteria.lowercase === true) {
-    validcharacters = validcharacters.concat(lowercaseCharactersArray);
+    validCharacters = validCharacters.concat(lowercaseCharactersArray); //add to overall array that remaining random characters are selected from
     generatedPasswordArray =
       generatedPasswordArray +
       lowercaseCharactersArray[
         Math.floor(Math.random() * lowercaseCharactersArray.length)
       ];
+    initialLength++;
   }
   if (userCriteria.uppercase === true) {
-    validcharacters = validcharacters.concat(uppercaseCharactersArray);
+    validCharacters = validCharacters.concat(uppercaseCharactersArray);
+    generatedPasswordArray =
+      generatedPasswordArray +
+      uppercaseCharactersArray[
+        Math.floor(Math.random() * uppercaseCharactersArray.length)
+      ];
+    initialLength++;
   }
   if (userCriteria.numeric === true) {
-    validcharacters = validcharacters.concat(numericArray);
+    validCharacters = validCharacters.concat(numericArray);
+    generatedPasswordArray =
+      generatedPasswordArray +
+      numericArray[Math.floor(Math.random() * numericArray.length)];
+    initialLength++;
   }
   if (userCriteria.special === true) {
-    validcharacters = validcharacters.concat(specialCharactersArray);
+    validCharacters = validCharacters.concat(specialCharactersArray);
+    generatedPasswordArray =
+      generatedPasswordArray +
+      specialCharactersArray[
+        Math.floor(Math.random() * specialCharactersArray.length)
+      ];
+    initialLength++;
   }
-
-  console.log("Pre-shuffle and pw loop ");
-  console.log(generatedPasswordArray);
 
   //main loop for random password
-  for (var i = 0; i < userCriteria.length; i++) {
-    // generatedPassword = generatedPassword +
+  for (var i = 0; i < userCriteria.length - initialLength; i++) {
+    generatedPasswordArray =
+      generatedPasswordArray +
+      validCharacters[Math.floor(Math.random() * validCharacters.length)];
   }
-  console.log(generatedPasswordArray);
+
+  shuffle(generatedPasswordArray);
+
+  return generatedPasswordArray;
 }
 
 // Write password to the #password input
