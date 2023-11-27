@@ -2,14 +2,14 @@
 var generateBtn = document.querySelector("#generate");
 
 // variables for password criteria
-var specialCharacters = "!\"#$%&'()*+,-./:;<=>?@[]^_`{|}~";
+var specialCharacters = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
 var specialCharactersArray = specialCharacters.split("");
 var lowercaseCharacters = "abcdefghijklmnopqrstuvwxyz";
 var lowercaseCharactersArray = lowercaseCharacters.split("");
 var uppercaseCharactersArray = lowercaseCharacters.toUpperCase().split("");
 var numericArray = "0123456789".split("");
 
-// Will be used at end of generated password array to ensure characters are at a random index
+// use shuffle at end of generated password array to ensure characters are at a random index
 function shuffle(array) {
   let currentIndex = array.length,
     randomIndex;
@@ -33,8 +33,8 @@ function shuffle(array) {
 // This is called in writePassword(), just needs to generate the password
 function generatePassword() {
   var validCharacters = [];
-  var initialLength = 0; //increment for each true userCriteria, subtract from desired pw length to get rest of the random characters
-  var generatedPasswordArray = []; //add pw to this array, order does not matter as it is shuffled later in this function, return at end of function
+  var initialLength = 0; // increment for each true userCriteria, subtract from desired pw length to get rest of the random characters
+  var generatedPasswordArray = []; // add pw to this array, order does not matter as it is shuffled later in this function, return at end of function
 
   var userCriteria = {
     length: prompt("What is the desired password length? (8-128 characters)"), // int
@@ -86,9 +86,11 @@ function generatePassword() {
       validCharacters[Math.floor(Math.random() * validCharacters.length)];
   }
 
-  shuffle(generatedPasswordArray);
+  generatedPasswordArray = generatedPasswordArray.split("");
 
-  return generatedPasswordArray;
+  shuffle(generatedPasswordArray); // shuffle because first 1-4 pw characters are in a pre-defined position
+
+  return generatedPasswordArray.join(""); // joins array elements into a single string with no seperator
 }
 
 // Write password to the #password input
