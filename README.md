@@ -10,6 +10,9 @@ This webpage allows a user to create a randomized password based on their requir
 - Enter the desired password length
 - Confirm if the user wants each of the following: lowercase letters, uppercase letters, numbers, and special characters
 
+https://scook9.github.io/generate-password/  
+https://github.com/scook9/generate-password/
+
 ![randomly generated password](assets/images/webpageCapture.png)
 
 ## Credits
